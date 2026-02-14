@@ -2,7 +2,7 @@
 
 tuiro is a tiny terminal UI helper designed for clean, readable, and structured output in build scripts and command‑line tools. It provides simple utilities for sections, banners, status messages, and command logging without introducing heavy dependencies or complex abstractions.
 
-tuiro began as an internal utility inside the TactileBrowser project (https://github.com/NellowTCS/TactileBrowser). It is now available as a standalone library for any script or tool that wants clear and consistent terminal output.
+> tuiro began as an internal utility inside the TactileBrowser project (https://github.com/NellowTCS/TactileBrowser). It is now available as a standalone library for any script or tool that wants clear and consistent terminal output.
 
 ## Features
 
@@ -12,7 +12,6 @@ tuiro began as an internal utility inside the TactileBrowser project (https://gi
 - Informational, warning, success, and error messages
 - Command logging for build steps
 - Centered banners for high‑visibility output
-- Fully typed and PEP 561 compliant
 
 ## Installation
 
@@ -63,6 +62,21 @@ tuiro
 ```
 
 This is intended as a quick verification that the package is installed and functioning.
+Add the argument `--ci` to see the CI mode!
+
+```
+╔══════════════════════════════════════════════════════════╗
+║                          tuiro                           ║
+╚══════════════════════════════════════════════════════════╝
+
+
+────────────────────────────────────────────────────────────
+  Demo
+────────────────────────────────────────────────────────────
+[OK] tuiro is installed and working!
+[*] You're ready to build beautiful CLI scripts.
+[!] CI mode active!
+```
 
 ## API
 
