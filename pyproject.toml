@@ -1,0 +1,30 @@
+[project]
+name = "tuiro"
+version = "0.1.0"
+description = "Tiny terminal UI utility for clean, colorful build output."
+readme = "README.md"
+authors = [
+    { name = "NellowTCS", email = "nellowtcs@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = []
+
+keywords = ["terminal", "tui", "ansi", "cli", "colors", "logging", "build-tools"]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Topic :: Terminals",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Utilities"
+]
+
+[build-system]
+requires = ["uv_build>=0.10.2,<0.11.0"]
+build-backend = "uv_build"
+
+[project.scripts]
+tuiro = "tuiro.__main__:main"
