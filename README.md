@@ -1,17 +1,20 @@
 # tuiro
 
-tuiro is a tiny terminal UI helper designed for clean, readable, and structured output in build scripts and command‑line tools. It provides simple utilities for sections, banners, status messages, and command logging without introducing heavy dependencies or complex abstractions.
+tuiro is a tiny terminal UI helper designed for clean, readable, and structured output in build scripts and command‑line tools. It provides simple utilities for sections, banners, status messages, command logging, and themed output without introducing heavy dependencies or complex abstractions.
 
 > tuiro began as an internal utility inside the TactileBrowser project (https://github.com/NellowTCS/TactileBrowser). It is now available as a standalone library for any script or tool that wants clear and consistent terminal output.
 
 ## Features
 
 - Lightweight and dependency‑free
-- ANSI color support with automatic disabling in CI environments
+- ANSI color support with optional CI mode
+- Built‑in themes and user‑defined palettes
 - Section and subsection headers
 - Informational, warning, success, and error messages
 - Command logging for build steps
-- Centered banners for high‑visibility output
+- Centered banners with automatic terminal width detection
+- A simple step context manager for build phases
+- A minimal CLI for quick verification and theme testing
 
 ## Installation
 
@@ -39,7 +42,7 @@ tui.info("Checking dependencies")
 tui.success("All checks passed")
 ```
 
-Example output (missing color sadly since GitHub doesn't support that):
+Example output (colors omitted):
 
 ```
 ╔══════════════════════════════════════════════════════════╗
@@ -53,6 +56,49 @@ Example output (missing color sadly since GitHub doesn't support that):
 [OK] All checks passed
 ```
 
+## Themes
+
+tuiro supports both built‑in themes and user‑defined palettes.
+
+### Built‑in themes
+
+- default  
+- mono  
+- pastel  
+
+Use a theme by name:
+
+```python
+tui = TUI(theme="pastel")
+```
+
+### Custom palettes
+
+Palettes live in `tuiro.palette`. Users can define their own palette by subclassing `Palette`:
+
+```python
+from tuiro.palette import Palette
+from tuiro.colors import Colors
+
+class MyPalette(Palette):
+    success = Colors.BRIGHT_GREEN
+    info = Colors.BRIGHT_CYAN
+```
+
+Then pass it to TUI:
+
+```python
+tui = TUI(theme=MyPalette)
+```
+
+or:
+
+```python
+tui = TUI(theme=MyPalette())
+```
+
+Note: The CLI `--theme` flag accepts only built‑in theme names from `PROFILES`. Custom palettes must be provided from Python code.
+
 ## CLI
 
 tuiro includes a small demonstration CLI:
@@ -61,29 +107,35 @@ tuiro includes a small demonstration CLI:
 tuiro
 ```
 
-This is intended as a quick verification that the package is installed and functioning.
-Add the argument `--ci` to see the CI mode!
+Flags:
 
 ```
-╔══════════════════════════════════════════════════════════╗
-║                          tuiro                           ║
-╚══════════════════════════════════════════════════════════╝
+tuiro --ci
+tuiro --no-color
+tuiro --theme pastel
+tuiro --help
+tuiro --version
+```
 
+Behavior:
 
-────────────────────────────────────────────────────────────
-  Demo
-────────────────────────────────────────────────────────────
-[OK] tuiro is installed and working!
-[*] You're ready to build beautiful CLI scripts.
-[!] CI mode active!
+- `--ci` disables colors
+- `--no-color` also disables colors
+- If both are provided, colors remain disabled
+- `--theme NAME` selects a built‑in theme
+- `--help` lists available themes
+
+Example:
+
+```
+tuiro --ci --theme mono
 ```
 
 ## API
 
-### `TUI(ci_mode: bool = False)`
+### `TUI(ci_mode: bool = False, theme: str | Palette = "default")`
 
-Creates a new terminal UI helper.  
-Colors are automatically disabled when running in non‑interactive environments.
+Creates a new terminal UI helper.
 
 ### `section(title: str)`
 
@@ -97,20 +149,35 @@ Prints a smaller subsection header.
 
 Prints a centered banner.
 
-### `info(message: str)`
-### `success(message: str)`
-### `warning(message: str)`
-### `error(message: str)`
+### Status messages
 
-Prints a formatted status message.
+```
+info(message: str)
+success(message: str)
+warning(message: str)
+error(message: str)
+```
 
 ### `command(cmd: str | list[str])`
 
-Prints a command being executed.
+Prints a command being executed. Lists are joined with spaces.
 
 ### `result(label: str, value: str)`
 
 Prints a key‑value result line.
+
+### `table(rows: list[tuple[str, str]])`
+
+Prints a simple two‑column table aligned on the left column.
+
+### `step(title: str)`
+
+Context manager for build steps:
+
+```python
+with tui.step("Compiling"):
+    run_compiler()
+```
 
 ## License
 
