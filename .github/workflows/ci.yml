@@ -17,17 +17,14 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install uv
-        run: pip install uv
+      - name: Install build dependencies
+        run: pip install hatchling build
 
       - name: Install project
-        run: |
-          uv venv .venv
-          source .venv/bin/activate
-          uv pip install -e .
+        run: pip install -e .
 
       - name: Build artifacts
-        run: uv build
+        run: hatchling build
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

@@ -18,11 +18,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install uv
-        run: pip install uv
+      - name: Install build dependencies
+        run: pip install hatchling build
 
       - name: Build package
-        run: uv build
+        run: hatchling build
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.8.10
