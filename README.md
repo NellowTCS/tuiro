@@ -1,5 +1,8 @@
 # tuiro
 
+[![CI](https://github.com/NellowTCS/tuiro/actions/workflows/ci.yml/badge.svg)](https://github.com/NellowTCS/tuiro/actions/workflows/ci.yml) [![Release](https://github.com/NellowTCS/tuiro/actions/workflows/release.yml/badge.svg)](https://github.com/NellowTCS/tuiro/actions/workflows/release.yml) ![PyPI - Version](https://img.shields.io/pypi/v/tuiro)
+
+
 tuiro is a tiny terminal UI helper designed for clean, readable, and structured output in build scripts and command‑line tools. It provides simple utilities for sections, banners, status messages, command logging, spinners, and themed output without introducing heavy dependencies or complex abstractions.
 
 > tuiro began as an internal utility inside the [TactileBrowser](https://github.com/NellowTCS/TactileBrowser) project. It is now available as a standalone library for any script or tool that wants clear and consistent terminal output.
