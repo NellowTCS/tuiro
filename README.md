@@ -2,7 +2,7 @@
 
 tuiro is a tiny terminal UI helper designed for clean, readable, and structured output in build scripts and command‑line tools. It provides simple utilities for sections, banners, status messages, command logging, and themed output without introducing heavy dependencies or complex abstractions.
 
-> tuiro began as an internal utility inside the TactileBrowser project (https://github.com/NellowTCS/TactileBrowser). It is now available as a standalone library for any script or tool that wants clear and consistent terminal output.
+> tuiro began as an internal utility inside the [TactileBrowser](https://github.com/NellowTCS/TactileBrowser) project. It is now available as a standalone library for any script or tool that wants clear and consistent terminal output.
 
 ## Features
 
@@ -181,4 +181,4 @@ with tui.step("Compiling"):
 
 ## License
 
-MIT License. See (LICENSE)[LICENSE] for details.
+MIT License. See [LICENSE](LICENSE) for details.
