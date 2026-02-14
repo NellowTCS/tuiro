@@ -1,6 +1,6 @@
 # tuiro
 
-tuiro is a tiny terminal UI helper designed for clean, readable, and structured output in build scripts and command‑line tools. It provides simple utilities for sections, banners, status messages, command logging, and themed output without introducing heavy dependencies or complex abstractions.
+tuiro is a tiny terminal UI helper designed for clean, readable, and structured output in build scripts and command‑line tools. It provides simple utilities for sections, banners, status messages, command logging, spinners, and themed output without introducing heavy dependencies or complex abstractions.
 
 > tuiro began as an internal utility inside the [TactileBrowser](https://github.com/NellowTCS/TactileBrowser) project. It is now available as a standalone library for any script or tool that wants clear and consistent terminal output.
 
@@ -12,6 +12,7 @@ tuiro is a tiny terminal UI helper designed for clean, readable, and structured 
 - Section and subsection headers
 - Informational, warning, success, and error messages
 - Command logging for build steps
+- Animated spinners for long-running operations
 - Centered banners with automatic terminal width detection
 - A simple step context manager for build phases
 - A minimal CLI for quick verification and theme testing
@@ -55,6 +56,34 @@ Example output (colors omitted):
 [*] Checking dependencies
 [OK] All checks passed
 ```
+
+### Spinners
+
+Spinners provide visual feedback for long-running operations:
+
+```python
+# Context manager (automatic success)
+with tui.spinner("Downloading packages"):
+    download()
+
+# Context manager with custom message
+with tui.spinner("Building project") as s:
+    build()
+    s.succeed("Build completed in 3.2s")
+
+# Manual control
+spinner = tui.spinner("Running tests")
+spinner.start()
+run_tests()
+spinner.stop(status="success", final_message="42 tests passed")
+
+# Convenience methods
+spinner.succeed("Done!")
+spinner.fail("Something went wrong")
+spinner.warn("Completed with warnings")
+```
+
+Spinners automatically degrade to static messages in CI mode or non-TTY environments.
 
 ## Themes
 
@@ -169,6 +198,31 @@ Prints a key‑value result line.
 ### `table(rows: list[tuple[str, str]])`
 
 Prints a simple two‑column table aligned on the left column.
+
+### `spinner(message: str) -> Spinner`
+
+Creates an animated spinner for long-running operations. Returns a `Spinner` instance that can be used as a context manager or controlled manually.
+
+**Context manager usage:**
+```python
+with tui.spinner("Processing"):
+    do_work()
+```
+
+**Manual usage:**
+```python
+spinner = tui.spinner("Processing")
+spinner.start()
+do_work()
+spinner.succeed("Done!")
+```
+
+**Spinner methods:**
+- `start()`: Begin animation
+- `stop(status="success", final_message=None)`: Stop and show status
+- `succeed(message=None)`: Stop with success status
+- `fail(message=None)`: Stop with error status
+- `warn(message=None)`: Stop with warning status
 
 ### `step(title: str)`
 

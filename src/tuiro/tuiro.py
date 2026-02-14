@@ -7,6 +7,7 @@ import sys
 from contextlib import contextmanager
 from .colors import Colors
 from .palette import PROFILES, Palette
+from .spinner import Spinner
 
 
 class TUI:
@@ -106,6 +107,22 @@ class TUI:
         )
         print("╚" + "═" * (width - 2) + "╝")
         print(f"{Colors.RESET}")
+
+    # ------------------------------------------------------------
+    # Spinner
+    # ------------------------------------------------------------
+
+    def spinner(self, message: str) -> Spinner:
+        """Create a spinner for long-running operations.
+
+        Args:
+            message: The message to display while spinning.
+
+        Returns:
+            A Spinner instance that can be used as a context manager
+            or controlled manually with start()/stop().
+        """
+        return Spinner(self, message)
 
     # ------------------------------------------------------------
     # Step context manager

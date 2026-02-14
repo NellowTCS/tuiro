@@ -1,6 +1,6 @@
 [project]
 name = "tuiro"
-version = "0.1.0"
+version = "0.1.1"
 description = "Tiny terminal UI utility for clean, colorful build output."
 readme = "README.md"
 authors = [
@@ -9,7 +9,7 @@ authors = [
 requires-python = ">=3.10"
 dependencies = []
 
-keywords = ["terminal", "tui", "ansi", "cli", "colors", "logging", "build-tools"]
+keywords = ["terminal", "tui", "ansi", "cli", "colors", "logging", "build-tools", "spinner"]
 
 classifiers = [
     "Programming Language :: Python :: 3",
